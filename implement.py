@@ -1,4 +1,5 @@
 from sistemaVet import *
+from datetime import *
 
 def main():
     servicio_hospitalario = sistemaV()
@@ -13,18 +14,32 @@ def main():
                        \nUsted ingresó la opción: ''' ))
 
         if menu == 1:
-            if servicio_hospitalario.verNumeroMascotas() >= 10:
+            if servicio_hospitalario.verNumeroMascotas() >= 14:
                 print("No hay espacio dispnible...")
                 continue
             historia = int(input(" ingrese la historia clinica de la mascota: "))
             if servicio_hospitalario.verificarExiste(historia) == False:
+                while True: 
+                    tipo=input("Ingrese el tipo de mascota (felino o canino): ")
+                    if tipo=='felino':
+                        if servicio_hospitalario.verNumeroFelinos() >= 7:
+                            print('No es posible ingresar la mascosta al sistema') 
+                    if tipo=='canino':    
+                        if servicio_hospitalario.verNumeroCaninos() >= 7:
+                            print('No es posible ingresar la mascosta al sistema')
+                    else:
+                        print('ERROR-Valor invalido')
+                        continue
+
                 nombre=input("Ingrese el nombre de la mascota: ")
-                tipo=input("Ingrese el tipo de mascota (felino o canino): ")
                 peso=int(input("Ingrese el peso de la mascota: "))
                 fecha=input("Ingrese la fecha de ingreso (dia/mes/año): ")
-                medicamento=Medicamento()
-                medicamento.asignarNombre(input("Ingrese nombre del medicamento: "))
-                medicamento.asignarDosis(int(input("Ingrese dosis del medicamento: ")))
+                cdm=int(input("Ingrese la cantidad de medicamentos de la mascota"))
+                for i in range(0,cdm):
+                    medicamento=Medicamento()
+                    medicamento.asignarNombre(input("Ingrese nombre del medicamento: "))
+                    medicamento.asignarDosis(int(input("Ingrese dosis del medicamento: ")))
+
                 mas = Mascota()
                 mas.asignarNombre(nombre)
                 mas.asignarHistoria(historia)
